@@ -47,7 +47,7 @@ class ProductController extends Controller
         $product->description         = $request->description;
         $product->category_product_id = $request->category_product_id;
         $product->stock               = $request->stock;
-        if ($request->filled('image') && $request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $path = $request->image->storeAs('public/products', Str::random(5).'-'.$request->image->getClientOriginalName());
             $product->image = Storage::url($path);
         }
