@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class TransactionProduct extends Model
 {
@@ -12,8 +13,16 @@ class TransactionProduct extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'transaction_id', 'product_id'
+        'transaction_id', 'product_id', 'stock'
     ];
+
+    static public function boot()
+    {
+        parent::boot();
+        self::creating(function($query) {
+            $query->id = Str::uuid();
+        });
+    }
 
     public function transaction()
     {

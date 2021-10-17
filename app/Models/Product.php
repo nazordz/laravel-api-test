@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -17,6 +18,14 @@ class Product extends Model
         'category_product_id',
         'stock'
     ];
+
+    static public function boot()
+    {
+        parent::boot();
+        self::creating(function($query) {
+            $query->id = Str::uuid();
+        });
+    }
 
     public function category_product()
     {

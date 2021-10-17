@@ -32,41 +32,15 @@ class UserController extends Controller
             'gender' => 'required',
             'password'   => 'required',
         ]);
-
-        return User::create($request->all());
+        $user = $request->all();
+        $user['password'] = bcrypt($user['password']);
+        return User::create($user);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function logout(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $request->user()->currentAccessToken()->delete();
+        return ['status' => 'success'];
     }
 
     /**
@@ -91,6 +65,9 @@ class UserController extends Controller
         $user->email      = $request->email;
         $user->birth_date = $request->birth_date;
         $user->gender = $request->gender;
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
         $user->save();
         return $user;
     }

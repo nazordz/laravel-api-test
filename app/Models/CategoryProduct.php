@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class CategoryProduct extends Model
 {
@@ -13,6 +14,14 @@ class CategoryProduct extends Model
     protected $fillable = [
         'name', 'description'
     ];
+
+    static public function boot()
+    {
+        parent::boot();
+        self::creating(function($query) {
+            $query->id = Str::uuid();
+        });
+    }
 
     public function products()
     {

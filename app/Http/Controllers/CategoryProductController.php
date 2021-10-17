@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\CategoryProduct;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class CategoryProductController extends Controller
@@ -30,7 +29,7 @@ class CategoryProductController extends Controller
             'description' => 'required'
         ]);
 
-        return User::create($request->all());
+        return CategoryProduct::create($request->all());
     }
 
     /**
@@ -70,22 +69,30 @@ class CategoryProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CategoryProduct  $categoryProduct
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CategoryProduct $categoryProduct)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'        => 'required',
+            'description' => 'required'
+        ]);
+
+        $cate = CategoryProduct::find($id);
+        $cate->name = $request->name;
+        $cate->description = $request->description;
+        $cate->save();
+        return $cate;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CategoryProduct  $categoryProduct
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CategoryProduct $categoryProduct)
+    public function destroy(Request $request)
     {
-        //
+        CategoryProduct::destroy($request->id);
+        return ['status' => 'success'];
     }
 }
