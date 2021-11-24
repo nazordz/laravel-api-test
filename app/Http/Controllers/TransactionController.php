@@ -8,16 +8,33 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \App\Models\Transaction
+     */
     public function index()
     {
         return Transaction::with('user')->get();
     }
 
+    /**
+     * Display a transaction
+     *
+     * @param String $id
+     * @return \App\Models\Transaction
+     */
     public function show($id)
     {
         return Transaction::with('user', 'transaction_products.product')->find($id);
     }
 
+    /**
+     * create a transaction
+     *
+     * @param \Illuminate\Http\Request
+     * @return \App\Models\Transaction
+     */
     public function create(Request $request)
     {
         $request->validate([

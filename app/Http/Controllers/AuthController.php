@@ -9,6 +9,12 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    /**
+     * Authentication an user
+     * @param  \Illuminate\Http\Request  $request
+     * @return token string
+     * @return App\Models\User user
+     */
     public function login(Request $request)
     {
         $request->validate([
@@ -27,6 +33,11 @@ class AuthController extends Controller
         return ['token' => $user->createToken($request->email)->plainTextToken, 'user' => $user];
     }
 
+    /**
+     * Logout an user
+     * @param  \Illuminate\Http\Request  $request
+     * @return status string
+     */
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();

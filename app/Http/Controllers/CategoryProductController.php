@@ -10,7 +10,8 @@ class CategoryProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \App\Models\CategoryProduct
      */
     public function index(Request $request)
     {
@@ -26,6 +27,7 @@ class CategoryProductController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -75,7 +77,8 @@ class CategoryProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param String $id
+     * @return \App\Models\CategoryProduct
      */
     public function update(Request $request, $id)
     {
@@ -84,11 +87,11 @@ class CategoryProductController extends Controller
             'description' => 'required'
         ]);
 
-        $cate = CategoryProduct::find($id);
-        $cate->name = $request->name;
-        $cate->description = $request->description;
-        $cate->save();
-        return $cate;
+        $categoryProduct = CategoryProduct::find($id);
+        $categoryProduct->name = $request->name;
+        $categoryProduct->description = $request->description;
+        $categoryProduct->save();
+        return $categoryProduct;
     }
 
     /**

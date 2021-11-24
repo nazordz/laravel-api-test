@@ -9,6 +9,12 @@ Use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+    /**
+     * show list of product with category
+     *
+     * @param \Illuminate\Http\Request
+     * @return \App\Models\Product
+     */
     public function index(Request $request)
     {
         if ($request->has('fields')) {
@@ -19,6 +25,12 @@ class ProductController extends Controller
         return Product::with('category_product')->get();
     }
 
+    /**
+     * Create a Product
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \App\Models\Product
+     */
     public function create(Request $request)
     {
         $request->validate([
@@ -37,6 +49,13 @@ class ProductController extends Controller
         return Product::create($newProduct);
     }
 
+    /**
+     * update a product by id
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param String $id
+     * @return \App\Models\Product
+     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -60,6 +79,11 @@ class ProductController extends Controller
         return $product;
     }
 
+    /**
+     * delete a product
+     *
+     * @param \Illuminate\Http\Request $request
+     */
     public function destroy(Request $request)
     {
         Product::destroy($request->id);
