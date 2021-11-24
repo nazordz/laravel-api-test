@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->foreignUuid("category_product_id")->constrained('category_products');
             $table->integer("stock");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

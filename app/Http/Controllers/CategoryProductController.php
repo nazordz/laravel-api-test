@@ -41,39 +41,6 @@ class CategoryProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\CategoryProduct  $categoryProduct
-     * @return \Illuminate\Http\Response
-     */
-    public function show(CategoryProduct $categoryProduct)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CategoryProduct  $categoryProduct
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CategoryProduct $categoryProduct)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

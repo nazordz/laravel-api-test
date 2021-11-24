@@ -26,28 +26,30 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::post('/user/{id}', [UserController::class, 'update']);
     Route::post('/user-logout', [UserController::class, 'logout']);
 
-    Route::get('/users', [UserController::class, 'index']);
-    Route::post('/users', [UserController::class, 'create']);
-    Route::put('/users/{id}', [UserController::class, 'update']);
-    Route::delete('/users', [UserController::class, 'destroy']);
+    Route::group(['prefix' => '/users'], function() {
+        Route::get('/', [UserController::class, 'index']);
+        Route::post('/', [UserController::class, 'create']);
+        Route::put('/{id}', [UserController::class, 'update']);
+        Route::delete('/', [UserController::class, 'destroy']);
+    });
 
-    Route::get('category-products', [CategoryProductController::class, 'index']);
-    Route::post('category-products', [CategoryProductController::class, 'create']);
-    Route::put('category-products/{id}', [CategoryProductController::class, 'update']);
-    Route::delete('category-products', [CategoryProductController::class, 'destroy']);
+    Route::group(['prefix' => 'category-products'], function() {
+        Route::get('/', [CategoryProductController::class, 'index']);
+        Route::post('/', [CategoryProductController::class, 'create']);
+        Route::put('/{id}', [CategoryProductController::class, 'update']);
+        Route::delete('/', [CategoryProductController::class, 'destroy']);
+    });
 
-    Route::get('products', [ProductController::class, 'index']);
-    Route::post('products', [ProductController::class, 'create']);
-    Route::post('products/{id}', [ProductController::class, 'update']);
-    Route::delete('products', [ProductController::class, 'destroy']);
+    Route::group(['prefix' => 'products'], function() {
+        Route::get('/', [ProductController::class, 'index']);
+        Route::post('/', [ProductController::class, 'create']);
+        Route::post('/{id}', [ProductController::class, 'update']);
+        Route::delete('/', [ProductController::class, 'destroy']);
+    });
 
     Route::get('transactions', [TransactionController::class, 'index']);
     Route::get('transaction/{id}', [TransactionController::class, 'show']);
     Route::post('transaction', [TransactionController::class, 'create']);
-});
-
-Route::get('/', function() {
-    return ['status' => 'success'];
 });
 
 Route::post('/login', [AuthController::class, 'login']);
