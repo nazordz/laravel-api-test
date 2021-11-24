@@ -12,9 +12,15 @@ class CategoryProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return CategoryProduct::all();
+        if ($request->has('fields')) {
+            $fields = str_replace(' ', '', $request->fields);
+            $fields = explode(',', $fields);
+            return CategoryProduct::take(100)->get($fields);
+        } else {
+            return CategoryProduct::take(100)->get();
+        }
     }
 
     /**

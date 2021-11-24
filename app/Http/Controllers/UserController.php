@@ -12,9 +12,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return User::all();
+        if ($request->has('fields')) {
+            $fields = str_replace(' ', '', $request->fields);
+            $fields = explode(',', $fields);
+            return User::get($fields);
+        }
+        return User::get();
     }
 
     /**

@@ -9,8 +9,13 @@ Use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('fields')) {
+            $fields = str_replace(' ', '', $request->fields);
+            $fields = explode(',', $fields);
+            return Product::with('category_product')->get($fields);
+        }
         return Product::with('category_product')->get();
     }
 

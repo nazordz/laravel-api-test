@@ -34,14 +34,21 @@ class TransactionController extends Controller
             $product = Product::find($value['product_id']);
             if ($request->type == "IN") {
                 $product->stock = $product->stock + $value['stock'];
+                $product->save();
+                $transaction->transaction_products()->create([
+                    'stock' => $value['stock'],
+                    'product_id' => $value['product_id']
+                ]);
             } elseif ($request->type == "OUT") {
-                $product->stock = $product->stock - $value['stock'];
+                if ($value['stock'] <= $product->stock) {
+                    $product->stock = $product->stock - $value['stock'];
+                    $product->save();
+                    $transaction->transaction_products()->create([
+                        'stock' => $value['stock'],
+                        'product_id' => $value['product_id']
+                    ]);
+                }
             }
-            $product->save();
-            $transaction->transaction_products()->create([
-                'stock' => $value['stock'],
-                'product_id' => $value['product_id']
-            ]);
         }
         return $transaction;
     }
