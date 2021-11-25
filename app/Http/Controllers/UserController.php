@@ -65,6 +65,9 @@ class UserController extends Controller
             'gender' => 'required',
         ]);
         $user = User::find($id);
+        if (!$user) {
+            return  response()->json(['message' => 'User not found'], 404);
+        }
         $user->first_name  = $request->first_name;
         $user->last_name  = $request->last_name;
         $user->email      = $request->email;

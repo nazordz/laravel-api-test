@@ -18,6 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->foreignId("user_id")->constrained("users");
             $table->enum("type", ["IN", "OUT"]);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

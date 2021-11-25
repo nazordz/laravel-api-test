@@ -26,7 +26,11 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        return Transaction::with('user', 'transaction_products.product')->find($id);
+        $transaction = Transaction::with('user', 'transaction_products.product')->find($id);
+        if (!$transaction) {
+            return  response()->json(['message' => 'Transaction not found'], 404);
+        }
+        return $transaction;
     }
 
     /**

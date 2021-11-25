@@ -19,6 +19,7 @@ class CreateTransactionProductsTable extends Migration
             $table->foreignUuid("product_id")->constrained("products");
             $table->integer("stock");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

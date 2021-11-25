@@ -67,6 +67,9 @@ class ProductController extends Controller
         ]);
 
         $product = Product::find($id);
+        if (!$product) {
+            return response()->json(['status' => 'Product not found'], 404);
+        }
         $product->name                = $request->name;
         $product->description         = $request->description;
         $product->category_product_id = $request->category_product_id;

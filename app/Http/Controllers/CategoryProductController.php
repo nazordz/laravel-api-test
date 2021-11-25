@@ -55,6 +55,9 @@ class CategoryProductController extends Controller
         ]);
 
         $categoryProduct = CategoryProduct::find($id);
+        if (!$categoryProduct) {
+            return response()->json(['status' => 'Category Product not found'], 404);
+        }
         $categoryProduct->name = $request->name;
         $categoryProduct->description = $request->description;
         $categoryProduct->save();
